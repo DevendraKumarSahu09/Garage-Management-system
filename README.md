@@ -59,3 +59,37 @@ For our project we need to create four objects
     Create Appointment Object
     Create Service records Object
     Create Billing details and feedback Object
+![image](https://github.com/user-attachments/assets/e41c50ee-fe55-49b7-a98e-05f7b2403fab)
+
+## Tabs
+- Custom tabs for Customer Details, Appointments, Service Records, and Billing Details & Feedback.
+- Tabs are displayed for easy navigation and user access.
+
+What is Tab : A tab is like a user interface that is used to build records for objects and to view the records in the objects. 
+
+
+*Types of Tabs:*
+
+
+**Custom Tabs**: Custom object tabs are the user interface for custom applications that you build in salesforce.com. They look and behave like standard salesforce.com tabs such as accounts, contacts, and opportunities.
+
+**Web Tabs**: Web Tabs are custom tabs that display web content or applications embedded in the salesforce.com window. Web tabs make it easier for your users to quickly access content and applications they frequently use without leaving the salesforce.com application.
+
+**Visualforce Tabs**: Visualforce Tabs are custom tabs that display a Visualforce page. Visualforce tabs look and behave like standard salesforce.com tabs such as accounts, contacts, and opportunities.
+
+**Lightning Component Tabs**: Lightning Component tabs allow you to add Lightning components to the navigation menu in Lightning Experience and the mobile app.
+
+**Lightning Page Tabs**: Lightning Page Tabs let you add Lightning Pages to the mobile app navigation menu.
+
+Lightning Page tabs don't work like other custom tabs. Once created, they don't show up on the All Tabs page when you click the Plus icon that appears to the right of your current tabs. Lightning Page tabs also don't show up in the Available Tabs list when you customise the tabs for your apps.
+
+I followed these 4 steps to create a custom tab, 
+  - (i) Go to setup page >> type Tabs in Quick Find bar >> click on tabs >> New (under custom object tab).
+  - (ii) Select Object(Customer Details) >> Select the tab style >> Next (Add to profiles page) keep it as default >> Next (Add to Custom App)  uncheck the include tab .
+  - (iii) Make sure that the Append tab to users' existing personal customizations is checked.
+  - (iv) Click save.
+
+This image shows custom tabs which we created for our project
+![image](https://github.com/user-attachments/assets/e0d4af08-a7b7-4f71-95fb-e715a729f552)
+
+
