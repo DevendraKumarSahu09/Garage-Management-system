@@ -211,29 +211,241 @@ Sales Team Group: Contains all Sales Person roles for sharing access.
 
 
 Task 12: Sharing Settings
+Salesforce allows you to configure sharing settings to control how records are accessed and shared within your organization. These settings are crucial for maintaining data security and privacy. Salesforce provides a variety of tools and mechanisms to define and enforce sharing rules, such as:
+
+
+Organization-Wide Default (OWD) Settings:
+
+
+These settings define the default level of access for all objects within your Salesforce org.
+
+OWD settings include Private, Public Read-Only, Public Read/Write, and Controlled by Parent.
+
+OWD settings can be configured for each standard and custom object.
+
+
+Role Hierarchy:
+
+Salesforce uses a role hierarchy to determine record access.
+
+Users at higher levels in the hierarchy have greater access to records owned by or shared with users lower in the hierarchy.
+
+The role hierarchy is often used in combination with OWD settings to grant different levels of access.
+
+
+Profiles and Permission Sets:
+
+Profiles and permission sets allow administrators to specify object-level and field-level permissions for users.
+
+Profiles are typically used to grant general object and field access, while permission sets can be used to extend those permissions to specific users.
+
+
+Sharing Rules:
+
+
+Sharing rules are used to extend access to records for users who meet specific criteria.
+
+They can be used to grant read-only or read-write access to records owned by other users.
+
+Manual Sharing:
+
+
+Administrators and record owners can manually share specific records with other users or groups.
+
 Service Records OWD: Set to Private.
 Sharing Rule: Grants read/write access to Manager for Sales Person’s service records.
+![image](https://github.com/user-attachments/assets/ce79fcf7-aed3-4859-bc1d-83341ebeaf57)
 
 
 Task 13: Flows
-Record-Triggered Flow: Automates updates and email alerts for billing completion.
-Email Alert: Sends a "Thank you" message when payments are completed.
+In Salesforce, a flow is a powerful tool that allows you to automate business processes, collect and update data, and guide users through a series of screens or steps. Flows are built using a visual interface and can be created without any coding knowledge.
 
+Record-Triggered Flow: Automates updates and email alerts for billing completion.
+![Record-TriggeredFlow-UpdateRecord](https://github.com/user-attachments/assets/69dda8a4-c671-496f-802d-5d6ad14d72af)
+
+Email Alert: Sends a "Thank you" message when payments are completed.
+![flow-sendemail](https://github.com/user-attachments/assets/bc98039e-eb9d-42b2-a9f5-046df5fc24c8)
+
+Another Flow - Update Service Status
+![Flow2](https://github.com/user-attachments/assets/fb04f826-becf-4e74-b77f-941f9d784d66)
 
 Task 14: Apex Triggers
+Apex can be invoked by using triggers. Apex triggers enable you to perform custom actions
+
+before or after changes to Salesforce records, such as insertions, updates, or deletions.
+
+A trigger is Apex code that executes before or after the following types of operations:
+
+insert
+
+update
+
+delete
+
+merge
+
+upsert
+
+undelete
+
+For example, you can have a trigger run before an object's records are inserted into the database, after records have been deleted, or even after a record is restored from the Recycle Bin.
+
+
+You can define triggers for top-level standard objects that support triggers, such as a Contact or an Account, some standard child objects, such as a CaseComment, and custom objects. To define a trigger, from the object management settings for the object whose triggers you want to access, go to Triggers.
+
+
+There are primarily two types of Apex Triggers:
+
+
+Before Trigger: This type of trigger in Salesforce is used either to update or validate the values of a record before they can be saved into the database. So, basically, the before trigger validates the record first and then saves it. Some criteria or code can be set to check data before it gets ready to be inserted into the database.
+
+
+After Trigger: This type of trigger in Salesforce is used to access the field values set by the system and affect any change in the record. In other words, the after trigger makes changes to the value from the data inserted in some other record.
+
+
 Handler Class (AmountDistributionHandler): Calculates service amounts based on selected services.
 Trigger (AmountDistribution): Runs on appointment insert or update to update service amounts.
 
+UseCase : This use case works for Amount Distribution for each Service the customer selected for there Vehicle.
+
+
+Login to the respective trailhead account and navigate to the gear icon in the top right corner.
+
+Click on the Developer console. Now you will see a new console window.
+
+In the toolbar, you can see FILE. Click on it and navigate to new and create New apex class.
+
+Name the class as “AmountDistributionHandler ”.
+
+Code: 
+
+    public class AmountDistributionHandler {
+    
+        public static void amountDist(list<Appointment__c> listApp){
+    
+            list<Service_records__c> serList = new list <Service_records__c>();
+    
+            for(Appointment__c app : listApp){
+    
+                if(app.Maintenance_service__c == true && app.Repairs__c == true && app.Replacement_Parts__c == true){
+    
+                    app.Service_Amount__c = 10000;
+    
+                }
+    
+                else if(app.Maintenance_service__c == true && app.Repairs__c == true){
+    
+                    app.Service_Amount__c = 5000;    
+    
+                }
+    
+                else if(app.Maintenance_service__c == true && app.Replacement_Parts__c == true){
+    
+                    app.Service_Amount__c = 8000;    
+    
+                }
+    
+                else if(app.Repairs__c == true && app.Replacement_Parts__c == true){
+    
+                    app.Service_Amount__c = 7000;
+    
+                }
+    
+                else if(app.Maintenance_service__c == true){
+    
+                    app.Service_Amount__c = 2000;
+    
+                }
+    
+                else if(app.Repairs__c == true){
+    
+                    app.Service_Amount__c = 3000;
+    
+                }
+    
+                else if(app.Replacement_Parts__c == true){
+    
+                    app.Service_Amount__c = 5000;
+    
+                }
+            }
+        }
+    }
+
+Trigger Handler :
+
+How to create a new trigger :
+
+While still in the trailhead account, navigate to the gear icon in the top right corner.
+
+Click on developer console and you will be navigated to a new console window.
+
+Click on File menu in the tool bar, and click on new? Trigger.
+
+Enter the trigger name and the object to be triggered.
+
+Name  : AmountDistribution
+
+sObject : Appointment__c
+
+Code:
+
+    trigger AmountDistribution on Appointment__c (before insert, before update) {
+    
+        
+    
+        if(trigger.isbefore && trigger.isinsert || trigger.isupdate){
+    
+            AmountDistributionHandler.amountDist(trigger.new);
+    
+            
+    
+        }
+    
+    
+    }
+
 
 Task 15: Reports
+Reports give you access to your Salesforce data. You can examine your Salesforce data in almost infinite combinations, display it in easy-to-understand formats, and share the resulting insights with others. Before building, reading, and sharing reports, review these reporting basics. 
+
+Types of Reports in Salesforce 
+
+Tabular 
+
+Summary 
+
+Matrix 
+
+Joined Reports 
+
+
 Report Folder: Organize all reports under "Garage Management Folder".
+![image](https://github.com/user-attachments/assets/2395fb58-d272-4ac8-988c-0ebf35988cf5)
+
 Custom Report Type: Combines Customer Details, Appointments, Service Records, and Billing.
+![image](https://github.com/user-attachments/assets/fd7c8c03-21e5-4316-9069-49ce970adf38)
+
 Reports: Custom report "Service Information Report" with fields for customer, appointment date, service status, and payments.
+![image](https://github.com/user-attachments/assets/7c876e70-2678-4231-80d7-26783e7c1760)
 
 
 Task 16: Dashboards
+Dashboards help you visually understand changing business conditions so you can make decisions based on the real-time data you’ve gathered with reports. Use dashboards to help users identify trends, sort out quantities, and measure the impact of their activities. Before building, reading, and sharing dashboards, review these dashboard basics.
+
 Dashboard Folder: "Service Rating Dashboard" for organizing dashboards.
+![image](https://github.com/user-attachments/assets/42a7978c-0a0f-4792-8051-91448e7daffd)
+
 Dashboard Components: Visualizes service ratings, payment statuses, and operational KPIs.
+![image](https://github.com/user-attachments/assets/40f77a64-ec7f-4bd2-a8f5-c815aa3bdcb6)
+
+
+## User Adoption
+In our Garage Management System we created records for all objects.
+![image](https://github.com/user-attachments/assets/a18a6c75-6f07-4a20-8aa8-6a4c92c783c8)
+![image](https://github.com/user-attachments/assets/4c0f3a36-1db7-4358-bb4a-148df7ff6982)
+![image](https://github.com/user-attachments/assets/6dc70480-bcf8-49a9-a48f-46fa28c1784e)
+![image](https://github.com/user-attachments/assets/dbc40451-671b-4c5c-91cb-c21c5f7f21ea)
 
 
 Conclusion
