@@ -105,46 +105,136 @@ To create a lightning app page:
 ![LightningApp](https://github.com/user-attachments/assets/cc02b639-bb66-4ad0-bde4-44aa56d94edd)
 
 ## Creating Custom Fields
+When we talk about Salesforce, Fields represent the data stored in the columns of a relational database. It can also hold any valuable information that you require for a specific object. Hence, the overall searching, deletion, and editing of the records become simpler and quicker. 
+
+Types of Fields:
+- Standard Fields 
+- Custom Fields 
+
+**Standard Fields:** As the name suggests, the Standard Fields are the predefined fields in Salesforce that perform a standard task. The main point is that you can’t simply delete a Standard Field until it is a non-required standard field. Otherwise, users have the option to delete them at any point from the application freely. Moreover, we have some fields that you will find common in every Salesforce application. They are, 
+
+     - Created By 
+     - Owner 
+     - Last Modified
+     - Field Made During object Creation 
+
+**Custom Fields:** On the other side of the coin, Custom Fields are highly flexible, and users can change them according to requirements. Moreover, each organiser or company can use them if necessary. It means you need not always include them in the records, unlike Standard fields. Hence, the final decision depends on the user, and he can add/remove Custom Fields of any given form.
+
+For this project we create:-
 - Customer Details: Phone and email fields.
+  ![Fields-Phone Email_marked](https://github.com/user-attachments/assets/5a2145e3-a762-40a4-bf98-2743bb82b5d3)
+
 - Lookup Fields: Link Appointments to Customers, Service Records to Appointments, and Billing Details to Service Records.
 - Picklist Fields: Service status (Started, Completed) and payment status (Pending, Completed).
 - Formula Fields: Calculate service date from created date.
 - Text Fields: Vehicle number plate (10 characters, unique) and customer feedback rating (1 character).
+![Fields-Appointments](https://github.com/user-attachments/assets/d2b47d9d-30c1-4574-a81b-ade26231dbbb)
+![Fields R -ServiceRecord](https://github.com/user-attachments/assets/ea1fe105-2328-4e53-a6c0-17fe889093c4)
+![Fields R -Billing](https://github.com/user-attachments/assets/625889dd-9b4c-4ff9-8c73-b9f1b2e4ab14)
+
+
 
 
 Task 6: Validation Rules
+Validation rules are applied when a user tries to save a record and are used to check if the data meets specified criteria. If the criteria are not met, the validation rule triggers an error message and prevents the user from saving the record until the issues are resolved.
+
 Vehicle Number Plate: Must follow a format (e.g., MH12AB1234).
+![image](https://github.com/user-attachments/assets/47a27cd8-ab59-41d5-a78c-939c11698b6e)
+
 Service Status: Must be set to "Completed" before record can be saved.
 Rating: Customer service rating must be between 1 and 5.
+![image](https://github.com/user-attachments/assets/6fcff8a2-fad8-408c-a1bd-f6879382a225)
+
+
 Task 7: Duplicate Rules
 Matching Rule: Checks Gmail and phone number to identify duplicate customer details.
+![image](https://github.com/user-attachments/assets/a3ad72da-3f77-45c7-b45e-b83bd677b223)
+
 Duplicate Rule: Prevents duplicate customer records.
+![image](https://github.com/user-attachments/assets/a63be590-e53e-4190-a075-59356e5077ed)
+
+
 Task 8: Profiles
+A profile is a group/collection of settings and permissions that define what a user can do in salesforce. Profile controls “Object permissions, Field permissions, User permissions, Tab settings, App settings, Apex class access, Visualforce page access, Page layouts, Record Types, Login hours & Login IP ranges. You can define profiles by the user's job function. For example System Administrator, Developer, Sales Representative. 
+
+Types of profiles in salesforce:
+1. Standard profiles: 
+  By default salesforce provides below standard profiles. 
+
+        Contract Manager
+        Read Only
+        Marketing User
+        Solutions Manager
+        Standard User
+        System Administrator.
+
+We cannot deleted standard ones 
+Each of these standard ones includes a default set of permissions for all of the standard objects available on the platform. 
+
+2. Custom Profiles: 
+
+Custom ones defined by us. 
+They can be deleted if there are no users assigned with that particular one.
+
 Manager Profile: Access to all custom objects with extended session time and password settings.
+![image](https://github.com/user-attachments/assets/5c83a22d-5379-4212-8f9c-a4571cc9b50f)
+
 Sales Person Profile: Limited access to objects with tailored permissions.
+![image](https://github.com/user-attachments/assets/b940275a-0e2a-436a-a395-73459419bd0a)
+
+
 Task 9: Roles and Role Hierarchy
+A role in Salesforce defines a user's visibility access at the record level. Roles may be used to specify the types of access that people in your Salesforce organization can have to data. Simply put, it describes what a user could see within the Salesforce organization.
+
 Manager Role: Directly under the CEO.
 Sales Person Role: Reports to the Manager role.
+![image](https://github.com/user-attachments/assets/2ac89ba6-a938-4ea4-9205-06a42755bebc)
+
+
 Task 10: Users
+A user is anyone who logs in to Salesforce. Users are employees at your company, such as sales reps, managers, and IT specialists, who need access to the company's records. Every user in Salesforce has a user account. The user account identifies the user, and the user account settings determine what features and records the user can access.
+
 Manager User: Role as Manager, Profile as Manager, Salesforce license.
+![image](https://github.com/user-attachments/assets/4fa2df61-ed15-48d6-a2c3-cc8301e8c483)
+
+
 Sales Person Users: Role as Sales Person, Profile as Sales Person, Salesforce Platform license.
+![image](https://github.com/user-attachments/assets/355f5dba-f79e-4ac7-92d8-dda207c57f45)
+
+
+
 Task 11: Public Groups
+Public groups are a valuable tool for Salesforce administrators and developers to streamline user management, data access, and security settings. By creating and using public groups effectively, you can maintain a secure and organized Salesforce environment while ensuring that users have appropriate access to the resources they need.
+
 Sales Team Group: Contains all Sales Person roles for sharing access.
+![image](https://github.com/user-attachments/assets/ff2b7a75-4e29-4c29-9e83-aa4375065193)
+
+
 Task 12: Sharing Settings
 Service Records OWD: Set to Private.
 Sharing Rule: Grants read/write access to Manager for Sales Person’s service records.
+
+
 Task 13: Flows
 Record-Triggered Flow: Automates updates and email alerts for billing completion.
 Email Alert: Sends a "Thank you" message when payments are completed.
+
+
 Task 14: Apex Triggers
 Handler Class (AmountDistributionHandler): Calculates service amounts based on selected services.
 Trigger (AmountDistribution): Runs on appointment insert or update to update service amounts.
+
+
 Task 15: Reports
 Report Folder: Organize all reports under "Garage Management Folder".
 Custom Report Type: Combines Customer Details, Appointments, Service Records, and Billing.
 Reports: Custom report "Service Information Report" with fields for customer, appointment date, service status, and payments.
+
+
 Task 16: Dashboards
 Dashboard Folder: "Service Rating Dashboard" for organizing dashboards.
 Dashboard Components: Visualizes service ratings, payment statuses, and operational KPIs.
+
+
 Conclusion
 The Garage Management System built on Salesforce provides a comprehensive platform for managing appointments, services, and billing. Through the use of custom objects, tabs, profiles, flows, validation rules, and Apex triggers, the system ensures smooth operations, efficient record management, and enhanced customer satisfaction. This project enables better tracking of garage operations, fosters data-driven decision-making, and supports the long-term growth of garage businesses.
